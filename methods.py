@@ -29,6 +29,7 @@ def getNeighbors(file):
 
 
 for file in glob.glob('*.xyz'):
+    dupa
     f = open(file, "r").readlines()
     print getCoordinates(f)
 
