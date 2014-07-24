@@ -1,4 +1,4 @@
-import sys, os, glob, time
+import sys, os, glob
 
 def fileLength(file):
     return sum(1 for line in file)
