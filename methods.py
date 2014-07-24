@@ -1,4 +1,4 @@
-import sys, os, glob
+import os
 
 def fileLength(file):
     return sum(1 for line in file)
@@ -34,16 +34,25 @@ def getCoordinates(file):
 
 def getNeighbors(file):
     at_neighbors = {}
+    L = float(file[1].split()[1])
     coords = getCoordinates(file)
-    os.system("voro++ -p -c \"%i %n \" -{0} {0} -{0} {0} -{0} {0} tmp".format(float(file[1].split()[1]) / 2))
+    os.system("voro++ -p -c \"%i %n \" -{0} {0} -{0} {0} -{0} {0} tmp".format(L / 2))
     fp = open("tmp.vol", 'r').readlines()
     for line in fp:
         central = line.split()[0]
         at_neighbors[int(central)] = []
         for atom in line.split()[1:]:
-            if distance(coords.get(int(central)), coords.get(int(atom)), float(file[1].split()[1])) < 2.0:
+            if distance(coords.get(int(central)), coords.get(int(atom)), L) < 2.0:
                 at_neighbors[int(central)].append(int(atom))
     return at_neighbors
 
+
+def coordNumber_Si(file):
+    coord_num = {}
+    neighbors = getNeighbors(file)
+    for key in neighbors.keys():
+        if key > 10000:
+            coord_num[len(neighbors[key])] = coord_num.get(len(neighbors[key]), 0) + 1
+    return coord_num
 
 
