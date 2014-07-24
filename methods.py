@@ -33,12 +33,9 @@ def getCoordinates(file):
 
 
 def getNeighbors(file):
-    
     at_neighbors = {}
     coords = getCoordinates(file)
-
     os.system("voro++ -p -c \"%i %n \" -{0} {0} -{0} {0} -{0} {0} tmp".format(float(file[1].split()[1]) / 2))
-
     fp = open("tmp.vol", 'r').readlines()
     for line in fp:
         central = line.split()[0]
