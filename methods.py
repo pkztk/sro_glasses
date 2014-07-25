@@ -55,10 +55,6 @@ def getNeighbors(file):
 
 
 def coordNumber_Si(file):
-    try:
-        os.system("rm -f coord_*.dat")
-    except:
-        pass
     coord_num = {}
     count = 0
     neighbors = getNeighbors(file)
