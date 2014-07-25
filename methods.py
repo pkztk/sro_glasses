@@ -63,7 +63,7 @@ def coordNumber_Si(file):
             coord_num[len(neighbors[key])] = coord_num.get(len(neighbors[key]), 0) + 1
             count += 1
     for key in coord_num.keys():
-        open("coord_{}.dat".format(key), "a").write("{:.3f}\t{}".format(density(file), 100 * float(coord_num[key]) / count))
+        open("coord_{}.dat".format(key), "a").write("{:.3f}\t{}\n".format(density(file), 100 * float(coord_num[key]) / count))
     return coord_num
 
 
