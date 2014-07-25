@@ -5,11 +5,18 @@ def fileLength(file):
 
 
 def reformatFile(file):
+    try:
+        os.remove("tmp")
+    except:
+        pass
     for i in range(fileLength(file)):
         if i > 1 and file[i].split()[0] == "0":
             open("tmp", "a").write("{} {}\n".format(10000 + i - 1, ' '.join(file[i].split()[1:4])))
         elif file[i].split()[0] == "1":
             open("tmp", "a").write("{} {}\n".format(10000 - i, ' '.join(file[i].split()[1:4])))
+
+def density(file):
+    return  (99.63232692/(float(file[1].split()[1])**3))*1000
 
 
 def distance(a, b, L):
@@ -48,11 +55,19 @@ def getNeighbors(file):
 
 
 def coordNumber_Si(file):
+    try:
+        os.system("rm -f coord_*.dat")
+    except:
+        pass
     coord_num = {}
+    count = 0
     neighbors = getNeighbors(file)
     for key in neighbors.keys():
         if key > 10000:
             coord_num[len(neighbors[key])] = coord_num.get(len(neighbors[key]), 0) + 1
+            count += 1
+    for key in coord_num.keys():
+        open("coord_{}.dat".format(key), "a").write("{:.3f}\t{}".format(density(file), 100 * float(coord_num[key]) / count))
     return coord_num
 
 
