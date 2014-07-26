@@ -7,11 +7,13 @@ def fileLength(file):
 def reformatFile(file):
     try:
         os.remove("tmp")
+        os.remove("tmp_si")
     except:
         pass
     for i in range(fileLength(file)):
         if i > 1 and file[i].split()[0] == "0":
             open("tmp", "a").write("{} {}\n".format(10000 + i - 1, ' '.join(file[i].split()[1:4])))
+            open("tmp_si", "a").write("{} {}\n".format(10000 + i - 1, ' '.join(file[i].split()[1:4])))
         elif file[i].split()[0] == "1":
             open("tmp", "a").write("{} {}\n".format(10000 - i, ' '.join(file[i].split()[1:4])))
 
@@ -67,3 +69,29 @@ def coordNumber_Si(file):
     return coord_num
 
 
+def bondLength(file): 
+    count_si_o, count_o_o, count_si_si = 0, 0, 0
+    sum_si_o, sum_o_o, sum_si_si = 0, 0, 0
+    coords = getCoordinates(file)
+    neighbors = getNeighbors(file)
+    L = float(file[1].split()[1])
+    os.system("voro++ -p -c \"%i %n \" -{0} {0} -{0} {0} -{0} {0} tmp_si".format(L / 2))
+    ep = open("tmp_si.vol", "r").readlines()
+    for key in neighbors.keys():
+        if key > 10000:
+            for oxygen in neighbors[key]:
+                count_si_o += 1
+                sum_si_o += distance(coords[key], coords[oxygen], L)
+            for i in range(len(neighbors[key]) - 1):
+                count_o_o += 1
+                sum_o_o += distance(coords[neighbors[key][i]], coords[neighbors[key][i + 1]], L)
+    for line in ep:
+        for atom in line.split()[1:]:
+            length = distance(coords[int(line.split()[0])], coords[int(atom)], L)
+            if length < 3.5:
+                count_si_si += 1
+                sum_si_si += length
+    open("bond_lengths.dat", "a").write("{:.3f}\t{}\t{}\t{}\n".format(density(file), sum_si_o / count_si_o, sum_o_o / count_o_o, sum_si_si / count_si_si))
+    return (sum_si_o / count_si_o, sum_o_o / count_o_o, sum_si_si / count_si_si)
+                    
+                    
