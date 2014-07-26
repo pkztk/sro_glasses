@@ -45,17 +45,15 @@ print """
 
 answer  = input("Select an option: ")
 print 
-
         
 options = {1 : one, 2 : two, 3 : three, 4 : four, 5 : five}
-
 
 if answer == 2:
     methods.removeFiles("coord*")
 elif answer == 3:
-    methods.removeFiles("bond*")
+    open("bond_lengths.dat", "w").write("#density\tSi-O\t\tO-O\t\tSi-Si\n")
 elif answer == 4:
-    methods.removeFiles("angles*")
+    open("angles.dat", "w").write("#density\tO-Si-O\t\tSi-O-Si\n")
 elif answer == 5:
     methods.removeFiles("*_membered")
 

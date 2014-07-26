@@ -107,7 +107,7 @@ def bondLength(file):
             if length < 3.5:
                 count_si_si += 1
                 sum_si_si += length
-    open("bond_lengths.dat", "a").write("{:.3f}\t{}\t{}\t{}\n".format(density(file), sum_si_o / count_si_o, sum_o_o / count_o_o, sum_si_si / count_si_si))
+    open("bond_lengths.dat", "a").write("{:.3f}\t\t{}\t{}\t{}\n".format(density(file), sum_si_o / count_si_o, sum_o_o / count_o_o, sum_si_si / count_si_si))
     return (sum_si_o / count_si_o, sum_o_o / count_o_o, sum_si_si / count_si_si)
                     
 
@@ -130,7 +130,7 @@ def angles(file):
         else: 
             sum_si_o_si += math.degrees(math.acos(cosinus))
             count_si_o_si += 1
-    open("angles.dat", "a").write("{:.3f}\t{}\t{}\n".format(density(file), sum_o_si_o / count_o_si_o, sum_si_o_si / count_si_o_si))
+    open("angles.dat", "a").write("{:.3f}\t\t{}\t{}\n".format(density(file), sum_o_si_o / count_o_si_o, sum_si_o_si / count_si_o_si))
     return (sum_o_si_o / count_o_si_o, sum_si_o_si / count_si_o_si)
             
 
