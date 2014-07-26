@@ -133,4 +133,76 @@ def angles(file):
     open("angles.dat", "a").write("{:.3f}\t{}\t{}\n".format(density(file), sum_o_si_o / count_o_si_o, sum_si_o_si / count_si_o_si))
     return (sum_o_si_o / count_o_si_o, sum_si_o_si / count_si_o_si)
             
-                    
+
+def append_next_link(chain, level, limit):
+
+    global count
+    
+    if level > limit:
+        return
+    if count > 0:
+        return
+
+    current_oxygen = chain[-1]
+    silicon_neighbors = []
+    for neighbor in neighbors[current_oxygen]:
+        if neighbor not in chain:
+            silicon_neighbors.append(neighbor)
+
+    for silicon in silicon_neighbors:
+        for neighbor in neighbors[silicon]:
+            if neighbor not in chain:
+                chain.append(silicon)
+                chain.append(neighbor)
+                append_next_link(chain[:], level + 1, limit)
+                chain.remove(neighbor)
+                chain.remove(silicon)
+            else:
+                if neighbor == first_oxygen and len(chain) > 3:
+                    chain.append(silicon)
+                    chain.append(neighbor)
+                    structure_general[len(chain)/2] = structure_general.get(len(chain)/2, 0) + 1
+#                    print chain
+                    count += 1
+                    chain.remove(neighbor)
+                    chain.remove(silicon)
+
+
+def rings(file):
+    global count
+    global neighbors
+    global first_oxygen
+    global structure_general
+    sum_rings = 0
+    structure_general = {}
+    neighbors = getNeighbors(file)
+    for i in range(len(neighbors.keys())):
+        used = []
+        first = neighbors.keys()[i]
+        if first > 10000:
+             for oxygen in neighbors[first]:
+                 first_oxygen = oxygen
+                 used.append(first_oxygen)
+                 for oxygen in neighbors[first]:
+                     count = 0
+                     if oxygen != first_oxygen and oxygen not in used:
+                         chain = [first_oxygen, first, oxygen]
+                         for limit in range(2,9):
+                             append_next_link(chain, 1, limit)
+    for key in structure_general.keys():
+        sum_rings += structure_general[key]
+    for key in structure_general.keys():
+        open("{}_membered.dat".format(key), "a").write("{:.3f}\t{}\n".format(density(file), 100 * float(structure_general[key]) / sum_rings))
+    return structure_general
+
+
+
+
+
+
+
+
+
+
+
+    
