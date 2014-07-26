@@ -183,7 +183,7 @@ def rings(file):
                      count = 0
                      if oxygen != first_oxygen and oxygen not in used:
                          chain = [first_oxygen, first, oxygen]
-                         for limit in range(2,9):
+                         for limit in range(2,8):
                              append_next_link(chain, 1, limit)
     for key in structure_general.keys():
         sum_rings += structure_general[key]
