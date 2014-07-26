@@ -38,9 +38,9 @@ def five(file):
 print """
          What would you like to get?
 
-         1) neighbors list    2) coordination number of Si atoms     
-         3) bond lengths      4) O-Si-O and Si-O-Si angles
-         5) ring statistics   
+         1) neighbors list                          4) O-Si-O and Si-O-Si angles
+         2) coordination number of Si atoms         5) ring statistics 
+         3) bond lengths      
                                                              """   
 
 answer  = input("Select an option: ")
@@ -63,5 +63,4 @@ elif answer == 5:
 for file in sorted(glob.glob('*.xyz')):
     f = open(file, "r").readlines()
     options[answer](f)
-    print
-
+ 
