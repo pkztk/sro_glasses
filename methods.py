@@ -81,7 +81,7 @@ def coordNumber_Si(file):
             count += 1
     for key in coord_num.keys():
         open("coord_{}.dat".format(key), "a").write("{:.3f}\t{}\n".format(density(file), 100 * float(coord_num[key]) / count))
-    return coord_num
+    return (coord_num, count)
 
 
 def bondLength(file): 
@@ -189,7 +189,7 @@ def rings(file):
         sum_rings += structure_general[key]
     for key in structure_general.keys():
         open("{}_membered.dat".format(key), "a").write("{:.3f}\t{}\n".format(density(file), 100 * float(structure_general[key]) / sum_rings))
-    return structure_general
+    return (structure_general, sum_rings)
  
 
 def removeFiles(str):
