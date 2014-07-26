@@ -64,3 +64,4 @@ for file in sorted(glob.glob('*.xyz')):
     f = open(file, "r").readlines()
     options[answer](f)
     print
+
