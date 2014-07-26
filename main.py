@@ -1,6 +1,6 @@
 #!/usr/bin/python2
 
-import glob, methods
+import os, glob, methods
 
 def one(file):
     print "Each atom nearest neighbors - density {:.2f} g/cm^3:".format(methods.density(file))
@@ -62,4 +62,6 @@ for file in sorted(glob.glob('*.xyz')):
     f = open(file, "r").readlines()
     options[answer](f)
     print
+
+os.system("rm -f tmp*")
 
