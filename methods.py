@@ -190,4 +190,11 @@ def rings(file):
     for key in structure_general.keys():
         open("{}_membered.dat".format(key), "a").write("{:.3f}\t{}\n".format(density(file), 100 * float(structure_general[key]) / sum_rings))
     return structure_general
-    
+ 
+
+def removeFiles(str):
+    try:
+        os.system("rm -f {}.dat".format(str))
+    except:
+        pass
+   
