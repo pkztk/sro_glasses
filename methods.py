@@ -1,4 +1,4 @@
-import os
+import os, math
 
 def fileLength(file):
     return sum(1 for line in file)
@@ -19,6 +19,21 @@ def reformatFile(file):
 
 def density(file):
     return  (99.63232692/(float(file[1].split()[1])**3))*1000
+
+
+prod = lambda a, b: sum([ a[i] * b[i] for i in range(3) ])
+
+
+def vectors(a, b, L):
+    vec_coords = []
+    for i in range(3):
+        u = b[i] - a[i]
+        if u > L/2:
+            u -= L
+        elif u < -L/2:
+            u += L
+        vec_coords.append(u)
+    return vec_coords
 
 
 def distance(a, b, L):
@@ -95,4 +110,26 @@ def bondLength(file):
     open("bond_lengths.dat", "a").write("{:.3f}\t{}\t{}\t{}\n".format(density(file), sum_si_o / count_si_o, sum_o_o / count_o_o, sum_si_si / count_si_si))
     return (sum_si_o / count_si_o, sum_o_o / count_o_o, sum_si_si / count_si_si)
                     
+
+def angles(file):
+    sum_o_si_o, sum_si_o_si = 0, 0
+    count_o_si_o, count_si_o_si = 0, 0
+    coords = getCoordinates(file)
+    neighbors = getNeighbors(file)
+    L = float(file[1].split()[1])
+    for key in neighbors.keys():
+        for i in range(len(neighbors[key]) - 1):
+            vec_a = vectors(coords[key], coords[neighbors[key][i]], L)
+            vec_b = vectors(coords[key], coords[neighbors[key][i + 1]], L)
+            len_a = sum([ vec_a[i] ** 2 for i in range(3) ]) ** 0.5
+            len_b = sum([ vec_b[i] ** 2 for i in range(3) ]) ** 0.5
+            cosinus = prod(vec_a, vec_b) / (len_a * len_b)
+        if key > 10000:
+            sum_o_si_o += math.degrees(math.acos(cosinus))
+            count_o_si_o += 1
+        else: 
+            sum_si_o_si += math.degrees(math.acos(cosinus))
+            count_si_o_si += 1
+    return (sum_o_si_o / count_o_si_o, sum_si_o_si / count_si_o_si)
+            
                     
