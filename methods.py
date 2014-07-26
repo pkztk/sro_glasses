@@ -130,6 +130,7 @@ def angles(file):
         else: 
             sum_si_o_si += math.degrees(math.acos(cosinus))
             count_si_o_si += 1
+    open("angles.dat", "a").write("{:.3f}\t{}\t{}\n".format(density(file), sum_o_si_o / count_o_si_o, sum_si_o_si / count_si_o_si))
     return (sum_o_si_o / count_o_si_o, sum_si_o_si / count_si_o_si)
             
                     
