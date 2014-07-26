@@ -86,8 +86,9 @@ def bondLength(file):
                 count_o_o += 1
                 sum_o_o += distance(coords[neighbors[key][i]], coords[neighbors[key][i + 1]], L)
     for line in ep:
-        for atom in line.split()[1:]:
-            length = distance(coords[int(line.split()[0])], coords[int(atom)], L)
+        central = int(line.split()[0])
+        for atom in map(int, line.split()[1:]):
+            length = distance(coords[central], coords[atom], L)
             if length < 3.5:
                 count_si_si += 1
                 sum_si_si += length
