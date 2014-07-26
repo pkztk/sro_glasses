@@ -135,20 +135,16 @@ def angles(file):
             
 
 def append_next_link(chain, level, limit):
-
     global count
-    
     if level > limit:
         return
     if count > 0:
         return
-
     current_oxygen = chain[-1]
     silicon_neighbors = []
     for neighbor in neighbors[current_oxygen]:
         if neighbor not in chain:
             silicon_neighbors.append(neighbor)
-
     for silicon in silicon_neighbors:
         for neighbor in neighbors[silicon]:
             if neighbor not in chain:
@@ -194,15 +190,4 @@ def rings(file):
     for key in structure_general.keys():
         open("{}_membered.dat".format(key), "a").write("{:.3f}\t{}\n".format(density(file), 100 * float(structure_general[key]) / sum_rings))
     return structure_general
-
-
-
-
-
-
-
-
-
-
-
     
