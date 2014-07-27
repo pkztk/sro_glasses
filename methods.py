@@ -199,8 +199,8 @@ def removeFiles(str):
         pass
  
 
-def addLine(file,line):
-    with open(file,'r+') as f:
+def addLine(file, line):
+    with open(file, 'r+') as f:
         content = f.read()
         f.seek(0,0)
         f.write(line.rstrip('\r\n') + '\n' + content)
