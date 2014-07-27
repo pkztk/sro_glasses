@@ -63,5 +63,13 @@ for file in sorted(glob.glob('*.xyz')):
     options[answer](f)
     print
 
+line = "#density\t%"
+for file in sorted(glob.glob('coord_*.dat')):
+    methods.addLine(file, line)
+
+for file in sorted(glob.glob('*_membered.dat')):
+    methods.addLine(file, line)
+
+
 os.system("rm -f tmp*")
 

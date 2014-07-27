@@ -80,7 +80,7 @@ def coordNumber_Si(file):
             coord_num[len(neighbors[key])] = coord_num.get(len(neighbors[key]), 0) + 1
             count += 1
     for key in coord_num.keys():
-        open("coord_{}.dat".format(key), "a").write("{:.3f}\t{}\n".format(density(file), 100 * float(coord_num[key]) / count))
+        open("coord_{}.dat".format(key), "a").write("{:.3f}\t\t{}\n".format(density(file), 100 * float(coord_num[key]) / count))
     return (coord_num, count)
 
 
@@ -188,7 +188,7 @@ def rings(file):
     for key in structure_general.keys():
         sum_rings += structure_general[key]
     for key in structure_general.keys():
-        open("{}_membered.dat".format(key), "a").write("{:.3f}\t{}\n".format(density(file), 100 * float(structure_general[key]) / sum_rings))
+        open("{}_membered.dat".format(key), "a").write("{:.3f}\t\t{}\n".format(density(file), 100 * float(structure_general[key]) / sum_rings))
     return (structure_general, sum_rings)
  
 
@@ -197,4 +197,11 @@ def removeFiles(str):
         os.system("rm -f {}.dat".format(str))
     except:
         pass
-   
+ 
+
+def addLine(file,line):
+    with open(file,'r+') as f:
+        content = f.read()
+        f.seek(0,0)
+        f.write(line.rstrip('\r\n') + '\n' + content)
+  
