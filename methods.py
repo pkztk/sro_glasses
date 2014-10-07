@@ -18,7 +18,8 @@ def reformatFile(file):
             open("tmp", "a").write("{} {}\n".format(10000 - i, ' '.join(file[i].split()[1:4])))
 
 def density(file):
-    return  (99.63232692/(float(file[1].split()[1])**3))*1000
+    return  (((int(file[0].split()[0]) / 3 ) * 28.0855 + (2 * int(file[0].split()[0]) / 3) * 15.9994) * 1.6605389)/(float(file[1].split()[1])**3)
+    #return  ((((int(file[0].split()[0]) - 2) / 3 ) * 28.0855 + ((2 * (int(file[0].split()[0]) - 2)) / 3) * 15.9994) * 1.6605389)/(float(file[1].split()[1])**3)
 
 
 prod = lambda a, b: sum([ a[i] * b[i] for i in range(3) ])
