@@ -38,7 +38,7 @@ def five(file):
 print """
          What would you like to get?
 
-         1) neighbor list                          4) O-Si-O and Si-O-Si angles
+         1) neighbor list                           4) O-Si-O and Si-O-Si angles
          2) coordination number of Si atoms         5) ring statistics 
          3) bond lengths      
                                                              """   
