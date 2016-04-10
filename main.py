@@ -13,7 +13,7 @@ def two(file):
     print "Coordination numbers - density {:.2f} g/cm^3:".format(methods.density(file))
     coord_number_Si = methods.coordNumber_Si(file)
     for key, value in coord_number_Si[0].items():
-        print "{}-fold: {}%".format(key, 100 * float(value) / coord_number_Si[1])
+        print "{}-fold: {:%}".format(key, float(value) / coord_number_Si[1])
 
 
 def three(file):
@@ -32,7 +32,7 @@ def five(file):
     print "Ring distribution in % (total quantity in brackets) - density {:.2f} g/cm^3:".format(methods.density(file))
     rings = methods.rings(file)
     for key, value in rings[0].items():
-        print "{}-membered: {:.2f}% ({})".format(key, 100 * float(value) / rings[1], value)
+        print "{}-membered: {:.2%} ({})".format(key, float(value) / rings[1], value)
 
 
 print """
